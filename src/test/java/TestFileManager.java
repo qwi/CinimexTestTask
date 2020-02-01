@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
 
-public class testFileManager {
+public class TestFileManager {
 
     @Test
     public void testAddObjectInCache() {
