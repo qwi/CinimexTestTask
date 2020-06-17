@@ -1,9 +1,11 @@
 import com.cinimex.tasks.FileManager;
+import lombok.extern.java.Log;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
 
+@Log
 public class TestFileManager {
 
     @Test
@@ -61,10 +63,10 @@ public class TestFileManager {
     public void testRemoveExpiredElementsIfTimeLiveEnd() throws InterruptedException {
         FileManager<String, String> cache = new FileManager<>(TimeUnit.SECONDS.toMillis(1));
         cache.put("testKey", "testValue");
-        System.out.println("testValue exist? " + cache.containsItem("testKey"));
+        log.info("testValue exist? " + cache.containsItem("testKey"));
         Assert.assertTrue(cache.containsItem("testKey"));
         Thread.sleep(1000);
-        System.out.println("testValue exist? " + cache.containsItem("testKey"));
+        log.info("testValue exist? " + cache.containsItem("testKey"));
         Assert.assertFalse(cache.containsItem("testKey"));
     }
 
