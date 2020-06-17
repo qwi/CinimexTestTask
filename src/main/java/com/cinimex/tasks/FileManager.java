@@ -1,9 +1,12 @@
 package com.cinimex.tasks;
 
+import lombok.extern.java.Log;
+
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
+@Log
 public class FileManager<K, V> {
 
     private volatile Map<Key, V> repository = new ConcurrentHashMap<>();
@@ -21,8 +24,7 @@ public class FileManager<K, V> {
 
     /**
      * Thread for checking "expired" elements
-     */
-    {
+     */ {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -49,6 +51,7 @@ public class FileManager<K, V> {
 
     /**
      * The method retrieves an item from the cache
+     *
      * @param key - unique key for getting the value
      * @return an object by key
      */
@@ -97,7 +100,7 @@ public class FileManager<K, V> {
 
     /**
      * Method for updating the time when an item was added.
-     * @param key - unique key for getting the value.
+     * @param key          - unique key for getting the value.
      * @param dateCreation - time in millis.
      */
     public void refreshCreationDate(K key, long dateCreation) {
@@ -196,7 +199,7 @@ public class FileManager<K, V> {
          * @param dateCreation - time when an item was added to the cache.
          */
         public void refreshDateCreation(long dateCreation) {
-            System.out.println("body dateCreat: " + dateCreation);
+            log.info("body dateCreat: " + dateCreation);
             this.dateCreation = dateCreation;
         }
 
@@ -217,10 +220,7 @@ public class FileManager<K, V> {
                 return false;
             }
             final Key other = (Key) obj;
-            if (!Objects.equals(this.key, other.key)) {
-                return false;
-            }
-            return true;
+            return Objects.equals(this.key, other.key);
         }
 
         @Override
